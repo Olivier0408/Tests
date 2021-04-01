@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+   <!-- Definit le type de carateres -->
+   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+   
+   <!-- Titre de la page  -->
+   <title>Choix des spécialités en Terminale</title>
+   <!-- Favicon: pour faire apparaitre le logo de Passy dans l'onglet de la page -->
+   <link rel="icon" type="image/png" href="favicon.png">
+   <!-- Definition de la taille de l'écran et chargement des stylesheet (css) -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="site.css" rel="stylesheet" type="text/css">
+   
+   <!-- Script javascript qui permet de créer les options "pickup value" de "Spécialités" 
+   differentes pour les 3 spécialités. 
+   Ces options sont mises à jour chaque fois qu'une spécialité est choisie -->
+   <script type="text/javascript" src="gestionselect.js"></script>
+</head>
+
+<body>
+   <!-- Definition du menu en haut de l'écran (3 options) -->
+   <div  class="w3-top" id="myNavbar">
+      <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+         <a href="index.html" class="w3-bar-items w3-button w3-large" style="width:24% !important">
+            Saisie 
+            Modif.
+         </a>
+         <a href="efface-choix.php" class="w3-bar-items w3-button w3-large" style="width:24% !important">
+            Efface
+         </a>
+         <a href="affichage-csv.php" class="w3-bar-items w3-button w3-large" style="width:24% !important">
+            CSV
+         </a>
+         <a href="analyses.php" class="w3-bar-items w3-button w3-large" style="width:24% !important">
+            Analyse
+         </a>
+      </div>
+   </div>
+   
+   <!--Affichage du début de page -->
+   <div class="w3-padding-large" id="main">
+      <div class="w3-content">
+         <h2>Les spécialités de 1ère générale</h2>
+         <h4>Bonjour cher élève, écris ci‐dessous ton prénom, ton nom, ta classe, et selectionne tes spécialités d'aujourd'hui puis indique celle que tu ne conserveras pas en Terminale</h4>
+         
+         <!--Formulaire de choix-->
+         <form action="affichage-choix.php" method="post">
+            <!-- Permet de saisir le prénom et nom de l'éleve -->
+            <p>
+            <!-- L'attribut required oblige l'utilisateur à saisir tous les champs -->
+               <input class="w3-input w3-padding-16 identite" type="text" placeholder="Ton prénom" required name="Prenom">
+            </p>
+            <p>
+               <input class="w3-input w3-padding-16 identite" type="text" placeholder="Ton nom" required name="Nom">
+            </p>
+            
+            <!-- Permet de selectionner le sexe avec des boutons radio -->
+            <input type="radio" id="gender1" required name="gender" value="Femme">
+            <label for="gender1">Femme</label>
+            <br>
+            <input type="radio" id="gender2" name="gender" value="Homme">
+            <label for="gender2">Homme</label>
+            <br>
+            <input type="radio" id="gender3" name="gender" value="Autre">
+            <label for="gender3">Autre</label>
+            <br>
+            <!--<label for "gender-zone">Si autre précisez :</label>
+            <input type="text" name="gender-other" id="gender-zone"/>
+            <br>-->
+            <br>
+            
+            <!-- Permet de selectionner la classe de l'élève avec une pickup value -->
+            <label for liste="liste">Classe
+               <select required name="classe" id="liste">
+                  <option value="">...</option>
+                  <option value="1ère A">1<sup>&egrave;re</sup>A</option>
+                  <option value="1ère B">1<sup>&egrave;re</sup>B</option>
+                  <option value="1ère C">1<sup>&egrave;re</sup>C</option>
+                  <option value="1ère D">1<sup>&egrave;re</sup>D</option>
+                  <option value="1ère E">1<sup>&egrave;re</sup>E</option>
+                  <option value="1ère F">1<sup>&egrave;re</sup>F</option>
+                  <option value="1ère G">1<sup>&egrave;re</sup>G</option>
+                  <option value="1ère H">1<sup>&egrave;re</sup>H</option>
+                  <option value="1ère I">1<sup>&egrave;re</sup>I</option>
+                  <option value="1ère J">1<sup>&egrave;re</sup>J</option>
+               </select>
+            </label>
+            <br>
+            <br>
+            
+            <!-- Permet de selectionner les spécialités
+             A chaque changement les options sont (re)calculés avec le script js pour ne pas pouvoir saisir
+             la même option ddans 2 champs de spécialités différent -->
+            <label for="spe1-select">Spécialité n°1 conservée en Terminale:</label>
+            <br>
+            <select class="identite" required name="spe1" id="spe1" onChange="change(1);">
+            </select>
+            <script>
+			create_select(1,0)
+            </script>
+            <br><br>
+            <label for="spe2-select">Spécialité n°2 conservée en Terminale: </label>
+            <span id="label-specialite2">
+            </span>
+            <br>
+            <select class="identite" required name="spe2" id="spe2" onChange="change(2);">
+            </select>
+            <script>
+			create_select(2,0)
+            </script>
+            <br><br>
+            <label for="spe3-select">Spécialité n°3 abandonnée: </label>
+            <span id="label-specialite3">
+            </span>
+            <br>
+            <select class="identite" required name="spe3" id="spe3" onChange="change(3);">
+            </select>
+            <script>
+			create_select(3,0);
+			</script>
+            <br>
+            <p>
+            <input class="w3-input w3-padding-16 identite" type="text" placeholder="Ton mot de passe pour modifier ou effacer tes choix" required name="MdP">
+            </p>
+            <!-- Permet de communiquer (parametres POST) un libellé court des spécialités
+             à la page affichage-choix.php-->
+            <input id="spe1_text" name="spe1_text" value="" type="hidden">
+            <input id="spe2_text" name="spe2_text" value="" type="hidden">
+            <input id="spe3_text" name="spe3_text" value="" type="hidden">
+            
+            <!-- Affiche de le bouton d'envoi du formulaire-->
+            <button class="w3-button w3-light-grey w3-padding-large" type="submit"> <!-- style="width: 200px; height: 65px" -->
+            <i class="fa fa-paper-plane"></i> Envoyez </button>
+         </form>
+         
+         <!--Fin du formulaire -->
+      </div>
+   </div>
+</body>
+</html>
